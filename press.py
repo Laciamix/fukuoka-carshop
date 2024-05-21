@@ -193,4 +193,4 @@ def before_request():
         return redirect(url_for('login', next=request.endpoint))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
