@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html{
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: RGB(245, 245, 245);
+            overflow-x: hidden;
+        }
+        .topnav {
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            background-color: red;
+            position: fixed;
+            width: 98%;
+            z-index: 1000;
+            border-radius: 15px;
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            opacity: 95%;
+            align-items: center;
+        }
+
+        .topnav img{
+            display: flex;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-top: 3%;
+            padding-bottom: 3%;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 3px 16px;
+            text-decoration: none;
+            font-size: 28px;
+            line-height: 50px;
+            transition: color 0.5s;
+        }
+
+        .topnav a:hover {
+            opacity: 0.8;
+            color: lightskyblue;
+        }
+
+        .topnav a:active, .topnav a:focus {
+            color: white;
+        }
+
+        .underline {
+            position: absolute;
+            height: 3px;
+            background: white;
+            width: 0;
+            transition: all 0.5s;
+            border-radius: 3px;
+            bottom: 0px;
+            opacity: 0.7;
+        }
+
+        .icon {
+            display: block;
+            cursor: pointer;
+            float: right;
+            color: #f2f2f2;
+            transform: translateY(5%);
+            position: relative;
+            padding: 12px;
+        }
+        
+        .icon {
+            position: absolute;
+            right: 0;
+            bottom: 8px;
+        }
+
+        .bar1, .bar2, .bar3 {
+            width: 35px;
+            height: 5px;
+            background-color: white;
+            margin: 20% 0;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            transform: rotate(-45deg) translate(-9px, 8px);
+        }
+        
+        .change .bar2 {
+            opacity: 0;
+        }
+        
+        .change .bar3 {
+            transform: rotate(45deg) translate(-8px, -8px);
+        }
+        
+        .car-card-container {
+            display: flex;
+            top: 5vw;
+            position: absolute;
+            width: 2000%;
+            overflow: hidden;
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            transition: transform 0.2s ease-in-out;
+        }        
+        
+        .left-btn, .right-btn {
+            position: absolute;
+            top: 40vw;
+            transform: translateY(-50%);
+            width: 6vw;
+            height: 6vw;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none; 
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .left-btn::before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: var(--arrow-height) solid transparent;
+            border-bottom: var(--arrow-height) solid transparent;
+            border-right: var(--arrow-width) solid white;
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .right-btn::before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: var(--arrow-height) solid transparent;
+            border-bottom: var(--arrow-height) solid transparent;
+            border-left: var(--arrow-width) solid white;
+            position: absolute;
+            top: 50%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+        }        
+        
+        .left-btn {
+            left: 0;
+            opacity: 0;
+        }
+        
+        .right-btn {
+            right: 0;
+        }
+
+        .car-card {
+            width: 90%;
+            height: 90%;
+            background-color: rgba(255, 255, 255, 0.98);
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .car-card {
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        .car-card {
+            margin: 0 10px;
+        }        
+
+        .car-card img {
+            width: 80vw;
+            height: auto;
+            object-fit: cover;
+        }
+
+        @media screen and (min-width: 651px) {
+            .topnav a:not(:first-child) {display: block;}
+            .topnav a.icon {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 650px) {
+            #intr-mom {
+                font-size: 80%;
+            }
+            .topnav {
+                justify-content: center;
+            }
+            .topnav a#logo-lnk{display: block;}
+            .topnav a {display: none;}
+            .topnav a.icon {
+                float: right;
+                display: block;
+                color: #f2f2f2;
+            }
+            .topnav.responsive a.icon {
+                position: fixed;
+                right: 0;
+                top: 0;
+            }
+            .topnav.responsive a {
+                float: none;
+                display: block;
+                text-align: center;
+            }
+            .topnav a {
+                font-size: 30px;
+            }
+            .underline {
+                display: none;
+            }
+            .topnav.responsive {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav" id="Topnav">
+        <a href="/" id="logo-lnk">
+            <img src="/assets/logo3.png" alt="LOGO" style="height: 48px; width: auto;">
+        </a>
+        <div id="nav-links">
+            <a class="link" href="/">ホーム</a>
+            <a class="link" href="/profile/Bio">会社案内</a>
+        </div>
+        <div class="underline" id="underline"></div>
+        <a href="javascript:void(0);" class="icon" onclick="menu()">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </a>
+    </div>
+    <div id="car-shop" name="car-shop">
+        <button class="nav-btn left-btn" onclick="slideCards(-1)"></button>
+        <button class="nav-btn right-btn" onclick="slideCards(1)"></button>
+        <div class="car-card-container car-card-animate">
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car1.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car2.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car3.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car4.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car5.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car6.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car7.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car8.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car9.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car10.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car11.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car12.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car13.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car14.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car15.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car16.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car17.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car18.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car19.jpg" alt="Coming soon">
+            </div>
+            <div class="car-card car-card-animate">
+                <img src="/car-info/car8/car20.jpg" alt="Coming soon">
+            </div>
+        </div>   
+    </div>
+</body>
+<script>
+    function menu() {
+        var underline = document.getElementById('underline');
+        var links = document.querySelectorAll('.topnav a');
+
+        links.forEach(function(link) {
+            link.addEventListener('mouseenter', function(e) {
+                underline.style.width = e.target.offsetWidth + 'px';
+                underline.style.left = e.target.offsetLeft + 'px';
+            });
+
+            link.addEventListener('mouseleave', function(e) {
+                underline.style.width = '0';
+                underline.style.left = e.target.offsetLeft + 'px';
+            });
+        });
+
+        var x = document.getElementById("Topnav");
+        var icon = document.querySelector(".icon");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+            icon.classList.add("change");
+        } else {
+            x.className = "topnav";
+            icon.classList.remove("change");
+        }
+    }
+
+    function adjustArrowSize() {
+        const leftBtn = document.querySelector('.left-btn');
+        const rightBtn = document.querySelector('.right-btn');
+    
+        const leftBtnWidth = leftBtn.offsetWidth;
+        const leftBtnHeight = leftBtn.offsetHeight;
+        const rightBtnWidth = rightBtn.offsetWidth;
+        const rightBtnHeight = rightBtn.offsetHeight;
+
+        const arrowHeight = leftBtnHeight * 0.2;
+        const arrowWidth = leftBtnWidth * 0.2;
+
+        leftBtn.style.setProperty('--arrow-width', `${arrowWidth}px`);
+        leftBtn.style.setProperty('--arrow-height', `${arrowHeight}px`);
+
+        rightBtn.style.setProperty('--arrow-width', `${arrowWidth}px`);
+        rightBtn.style.setProperty('--arrow-height', `${arrowHeight}px`);
+    }
+
+    window.onload = function() {
+    
+        adjustArrowSize();
+        links.forEach(function(link) {
+            link.addEventListener('mouseenter', function(e) {
+                underline.style.width = e.target.offsetWidth + 'px';
+                underline.style.left = e.target.offsetLeft + 'px';
+            });
+
+            link.addEventListener('mouseleave', function(e) {
+                underline.style.width = '0';
+                underline.style.left = e.target.offsetLeft + 'px';
+            });
+        });
+
+        var worksLink = document.querySelector('.topnav a[href="/"]');
+        underline.style.width = worksLink.offsetWidth + 'px';
+        underline.style.left = worksLink.offsetLeft + 'px';
+    };
+
+    let currentSlide = 0;
+
+    //メインの処理
+    function slideCards(direction) {
+        const container = document.querySelector('.car-card-container');
+        const cardWidth = document.querySelector('.car-card').offsetWidth;
+        const cardMargin = parseFloat(getComputedStyle(document.querySelector('.car-card')).marginLeft);
+        const totalCards = document.querySelectorAll('.car-card').length;
+        const visibleCards = 1;
+    
+        currentSlide += direction;
+    
+        if (currentSlide < 0) {
+            currentSlide = totalCards - visibleCards;
+        } else if (currentSlide > totalCards - visibleCards) {
+            currentSlide = 0;
+        }
+    
+        // ボタンの当たり判定を操作してからfadeアニメーション
+        const leftBtn = document.querySelector('.left-btn');
+        const rightBtn = document.querySelector('.right-btn');
+        
+        if (currentSlide === 0) {
+            leftBtn.style.transition = 'opacity 0.5s';
+            leftBtn.style.opacity = '0';
+            leftBtn.disabled = true;
+            setTimeout(() => {
+                leftBtn.style.display = 'none';
+            }, 500);
+        } else {
+            leftBtn.style.display = 'block';
+            leftBtn.disabled = false;
+            setTimeout(() => {
+                leftBtn.style.transition = 'opacity 0.5s';
+                leftBtn.style.opacity = '1';
+            }, 10);
+        }
+    
+        if (currentSlide === totalCards - visibleCards) {
+            rightBtn.style.transition = 'opacity 0.5s';
+            rightBtn.style.opacity = '0';
+            rightBtn.disabled = true;
+            setTimeout(() => {
+                rightBtn.style.display = 'none';
+            }, 500);
+        } else {
+            rightBtn.style.display = 'block';
+            rightBtn.disabled = false;
+            setTimeout(() => {
+                rightBtn.style.transition = 'opacity 0.5s';
+                rightBtn.style.opacity = '1';
+            }, 10);
+        }
+    
+        const translateValue = -(currentSlide * (cardWidth + cardMargin * 2));
+        container.style.transform = `translateX(${translateValue}px)`;
+    }
+
+    window.addEventListener('resize', adjustArrowSize);
+</script>
+</html>
