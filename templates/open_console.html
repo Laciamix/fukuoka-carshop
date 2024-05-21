@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Command</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Run Command</h1>
+        <form id="commandForm" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.command.label(class="form-control-label") }}
+                {{ form.command(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.submit(id="submitBtn", class="btn btn-primary") }}
+            </div>
+        </form>
+        <div id="outputArea"></div>
+    </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+            var command = document.getElementById('command').value;
+            var formData = { 'command': command };
+            fetch('/run_command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    var outputArea = document.getElementById('outputArea');
+                    if (data.error) {
+                        outputArea.innerHTML = '<pre>' + data.error + '</pre>';
+                    } else {
+                        var stdout = data.stdout.trim();
+                        var stderr = data.stderr.trim();
+                        var output = '';
+                        if (stdout) {
+                            output += '<h2>標準出力</h2><pre>' + stdout + '</pre>';
+                        }
+                        if (stderr) {
+                            output += '<h2>エラー出力</h2><pre>' + stderr + '</pre>';
+                        }
+                        outputArea.innerHTML = output;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit File</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <h1>Edit File: {{ file_path }}</h1>
+        <form method="post">
+            {{ form.csrf_token }}
+            {{ form.content.label }}
+            {{ form.content(class="form-control", rows="20") }}
+            {{ form.submit(class="btn btn-primary mt-3") }}
+        </form>
+        <hr>
+        <h2>Rename File</h2>
+        <form method="post">
+            {{ rename_form.csrf_token }}
+            {{ rename_form.new_name.label }}
+            {{ rename_form.new_name(class="form-control") }}
+            {{ rename_form.submit(class="btn btn-secondary mt-3") }}
+        </form>
+        <hr>
+        <a href="{{ url_for('dashboard')}}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</body>
+</html>
