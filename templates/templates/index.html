@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link
+    href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap"
+    rel="stylesheet"
+    type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html{
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: RGB(245, 245, 245);
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        #mainbody {
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.7s ease-in-out;
+          }
+
+        .fade-in.active {
+            opacity: 1;
+        }
+
+        .topnav {
+            margin-top: 10px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            background-color: red;
+            position: fixed;
+            width: 98%;
+            z-index: 1000;
+            border-radius: 15px;
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            opacity: 95%;
+            align-items: center;
+        }
+
+        .topnav img{
+            display: flex;
+            margin-top: auto;
+            margin-bottom: auto;
+            padding-top: 3%;
+            padding-bottom: 3%;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 3px 16px;
+            text-decoration: none;
+            font-size: 28px;
+            line-height: 50px;
+            transition: color 0.5s;
+        }
+
+        .topnav a:hover {
+            opacity: 0.8;
+            color: lightskyblue;
+        }
+
+        .topnav a:active, .topnav a:focus {
+            color: white;
+        }
+
+        .underline {
+            position: absolute;
+            height: 3px;
+            background: white;
+            width: 0;
+            transition: all 0.5s;
+            border-radius: 3px;
+            bottom: 0px;
+            opacity: 0.7;
+        }
+
+        .icon {
+            display: block;
+            cursor: pointer;
+            float: right;
+            color: #f2f2f2;
+            transform: translateY(5%);
+            position: relative;
+            padding: 12px;
+        }
+        
+        .icon {
+            position: absolute;
+            right: 0;
+            bottom: 8px;
+        }
+
+        .bar1, .bar2, .bar3 {
+            width: 35px;
+            height: 5px;
+            background-color: white;
+            margin: 20% 0;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            transform: rotate(-45deg) translate(-9px, 8px);
+        }
+        
+        .change .bar2 {
+            opacity: 0;
+        }
+        
+        .change .bar3 {
+            transform: rotate(45deg) translate(-8px, -8px);
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            color: white;
+            z-index: 100;
+        }
+        
+        .circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: lightskyblue;
+            border-radius: 100%;
+            transition: transform 0.3s ease-in-out;
+            transform-origin: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 80%;
+            transition: transform 0.4s ease, border-radius 0.4s ease;
+        }
+        
+        .scroll-top-btn:hover .circle {
+            transform: scale(1.1);
+            border-radius: 40%;
+            transition: transform 0.2s ease, border-radius 0.2s ease;
+        }
+        
+        .scroll-top-btn span {
+            display: block;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .scroll-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .scroll-top-btn span {
+            color: white;
+            font-size: 24px;
+            border-bottom: 10px solid white;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: none;
+            border-radius: 5px;
+        }
+        
+        #shopout {
+            width: 100vw;
+            height: auto;
+            display: flex;
+            margin: 0 auto;
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #shopoutsidephoto {
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        
+        #shopoutsidephoto h1 {
+            position: absolute;
+            display: flex;
+            width: 15vw;
+            left: 3vw;
+            top: 1vw;
+            font-size: 12vw;
+            color: white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+        }
+        
+        #shopoutsidephoto h2 {
+            position: absolute;
+            display: flex;
+            width: 25vw;
+            left: 3vw;
+            top: 14vw;
+            font-size: 12vw;
+            color: white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+        }        
+
+        #shopoutsidephoto h3 {
+            position: absolute;
+            display: flex;
+            width: 300vw;
+            left: 3vw;
+            top: 37vw;
+            font-size: 3vw;
+            color: white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+        }
+
+        #shopoutsidephoto h4 {
+            position: absolute;
+            display: flex;
+            width: 300vw;
+            left: 3vw;
+            top: 40vw;
+            font-size: 3vw;
+            color: white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+        }
+
+        #shopoutsidephoto h5 {
+            position: absolute;
+            display: flex;
+            width: 300vw;
+            left: 3vw;
+            top: 43vw;
+            font-size: 3vw;
+            color: white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+        }
+
+        #shopoutsidephoto h1, #shopoutsidephoto h2, #shopoutsidephoto h3, #shopoutsidephoto h4, #shopoutsidephoto h5{
+            position: absolute;
+            top: 60vw;
+            opacity: 0;
+            transition: opacity 1s ease, top 1s ease;
+        }
+        
+        #shopoutsidephoto h1.active {
+            top: 7vw;
+            opacity: 1;
+        }
+
+        #shopoutsidephoto h2.active {
+            top: 15vw;
+            opacity: 1;
+        }
+        
+        #shopoutsidephoto h3.active {
+            top: 37vw;
+            opacity: 1;
+        }
+
+        #shopoutsidephoto h4.active {
+            top: 40vw;
+            opacity: 1;
+        }
+
+        #shopoutsidephoto h5.active {
+            top: 43vw;
+            opacity: 1;
+        }
+
+        #intr-mom {
+            display: flex;
+            position: absolute;
+            gap: 2%;
+            font-weight: 600;
+            top: 60vw;
+            padding-top: 10vw;
+            padding-bottom: 2vw;
+            z-index: 11;
+            width: 100%;
+        }
+
+        #intr-cont {
+            width: 25%;
+            height: 100%;
+            background-color:rgb(255, 255, 255);
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            z-index: 20;
+            border-radius: 10px;
+        }
+
+        #intr-cont p{
+            text-align: center;
+            margin: 0px 0;
+        }
+
+        #intr-cont p:first-child{
+
+            font-size: 150%;
+        }
+
+        #intr-cont2 {
+            width: 25%;
+            height: 100%;
+            background-color:rgb(255, 255, 255);
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            z-index: 20;
+            border-radius: 10px;
+        }
+
+        #intr-cont2 p{
+            text-align: center;
+            margin: 0px 0;
+        }
+
+        #intr-cont2 p:first-child{
+
+            font-size: 150%;
+        }
+
+        #intr-cont3 {
+            width: 25%;
+            height: 100%;
+            background-color:rgb(255, 255, 255);
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            z-index: 20;
+            border-radius: 10px;
+        }
+
+        #intr-cont3 p{
+            text-align: center;
+            margin: 0px 0;
+        }
+
+        #intr-cont3 p:first-child{
+
+            font-size: 150%;
+        }
+
+        #intr-cont4 {
+            width: 25%;
+            height: 100%;
+            background-color:rgb(255, 255, 255);
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            z-index: 20;
+            border-radius: 10px;
+        }
+
+        #intr-cont4 p{
+            text-align: center;
+            margin: 0px 0;
+        }
+
+        #intr-cont4 p:first-child{
+
+            font-size: 140%;
+        }
+
+        #intr-cont5 {
+            width: 25%;
+            height: 100%;
+            background-color:rgb(255, 255, 255);
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            z-index: 20;
+            border-radius: 10px;
+        }
+
+        #intr-cont5 p{
+            text-align: center;
+            margin: 0px 0;
+        }
+
+        #intr-cont5 p:first-child{
+
+            font-size: 140%;
+        }
+
+        a {
+            color: black;
+        }
+        
+        .car-shop-top {
+            height: auto;
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #car-shop h1 {
+            font-size: 6vw;
+            position: absolute;
+            color:  white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+            top: 86vw;
+            left: 3vw;
+        }
+
+        .car-card-container {
+            display: flex;
+            position: absolute;
+            top: 105vw;
+            width: 250%;
+            overflow: hidden;
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            transition: transform 0.2s ease-in-out;
+        }        
+        
+        .left-btn, .right-btn {
+            position: absolute;
+            top: 120vw;
+            transform: translateY(-50%);
+            width: 6vw;
+            height: 6vw;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none; 
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .left-btn::before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: var(--arrow-height) solid transparent;
+            border-bottom: var(--arrow-height) solid transparent;
+            border-right: var(--arrow-width) solid white;
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .right-btn::before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: var(--arrow-height) solid transparent;
+            border-bottom: var(--arrow-height) solid transparent;
+            border-left: var(--arrow-width) solid white;
+            position: absolute;
+            top: 50%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+        } 
+        
+        .left-btn {
+            left: 0;
+            opacity: 0;
+        }
+        
+        .right-btn {
+            right: 0;
+        }
+
+        .car-card {
+            width: 20%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.1));
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .car-card {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        .car-card {
+            margin: 0 10px;
+        }        
+
+        .car-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }        
+
+        .car-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        .price {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .description {
+            color: #666;
+        }
+
+        #insurance {
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding-top: 5%;
+        }
+
+        #insurance img{
+            width: 100vw;
+            height: auto;
+        }
+
+        #insurance h1{
+            font-size: 6vw;
+            position: absolute;
+            color:  white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+            top: 150vw;
+            left: 3vw;
+        }
+
+        .insurance-animate {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        .insurance-animate.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #insurance h2{
+            font-size: 4vw;
+            position: absolute;
+            color:  white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+            top: 164vw;
+            left: 3vw;
+        }
+
+        #painting img{
+            padding-top: 2vw;
+            width: 100vw;
+            height: auto;
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #painting h1{
+            position: absolute;
+            font-size: 6vw;
+            top: 230vw;
+            left: 3vw;
+            color: white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+        }
+
+        #painting h1{
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        #painting h1.active {
+            opacity: 1;
+            transform: translateY(0);
+        }        
+
+        #inspection img{
+            padding-top: 2vw;
+            width: 100vw;
+            height: auto;
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #inspection h1{
+            position: absolute;
+            font-size: 6vw;
+            top: 300vw;
+            left: 3vw;
+            color: white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+        }
+
+        #inspection h1 {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        #inspection h1.active {
+            opacity: 1;
+            transform: translateY(0);
+        }        
+
+        #car_film img{
+            padding-top: 2vw;
+            width: 100vw;
+            height: auto;
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #car_film h1{
+            position: absolute;
+            font-size: 5vw;
+            top: 390vw;
+            left: 2vw;
+            color: white;
+            text-shadow: -1px -1px 0 black,
+                 1px -1px 0 black,
+                 -1px 1px 0 black,
+                 1px 1px 0 black;
+        }
+
+        #car_film h1 {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        #car_film h1.active {
+            opacity: 1;
+            transform: translateY(0);
+        }        
+
+        footer {
+            width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+            background: red;
+            color: white;
+            text-align: center;
+        }        
+        
+        .footer-content {
+            display: block;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        footer p {
+            font-weight: 600;
+            font-size: 3vw;
+        }
+
+        footer a {
+            font-weight: 600;
+            font-size: 3vw;
+            color: white;
+        }
+
+        footer h1 {
+            font-size: 3vw;
+        }
+        
+        .footer-logo {
+            padding-top: 1vw;
+            width: 20vw;
+            height: auto;
+        }
+
+        iframe {
+            position: absolute;
+            border-radius: 5px;
+            top: 32vw;
+            left: 65vw;
+            width: 30vw;
+            height: 30vw;
+        }
+
+        @media screen and (min-width: 651px) {
+            .topnav a:not(:first-child) {display: block;}
+            .topnav a.icon {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 650px) {
+            #intr-mom {
+                font-size: 80%;
+            }
+            .topnav {
+                justify-content: center;
+            }
+            .topnav a#logo-lnk{display: block;}
+            .topnav a {display: none;}
+            .topnav a.icon {
+                float: right;
+                display: block;
+                color: #f2f2f2;
+            }
+            .topnav.responsive a.icon {
+                position: fixed;
+                right: 0;
+                top: 0;
+            }
+            .topnav.responsive a {
+                float: none;
+                display: block;
+                text-align: center;
+            }
+            .topnav a {
+                font-size: 30px;
+            }
+            .underline {
+                display: none;
+            }
+            .topnav.responsive {
+                display: flex;
+                flex-direction: column;
+            }
+            #car-shop h1 {
+                font-size: 6vw;
+                position: absolute;
+                color:  white;
+                text-shadow: -1px -1px 0 black,
+                     1px -1px 0 black,
+                     -1px 1px 0 black,
+                     1px 1px 0 black;
+                top: 90vw;
+                left: 3vw;
+            }
+            .car-card-container {
+                display: flex;
+                position: absolute;
+                top: 102vw;
+            }
+            .left-btn, .right-btn {
+                top: 115vw;
+            }
+            #insurance h1{
+                font-size: 6vw;
+                position: absolute;
+                color:  white;
+                text-shadow: -1px -1px 0 black,
+                     1px -1px 0 black,
+                     -1px 1px 0 black,
+                     1px 1px 0 black;
+                top: 150vw;
+                left: 3vw;
+            }
+            #insurance h2{
+                top: 160vw;
+            }
+            #painting h1{
+                position: absolute;
+                font-size: 6vw;
+                top: 230vw;
+                left: 3vw;
+                color: white;
+                text-shadow: -1px -1px 0 black,
+                     1px -1px 0 black,
+                     -1px 1px 0 black,
+                     1px 1px 0 black;
+            }
+            #inspection h1{
+                position: absolute;
+                font-size: 6vw;
+                top: 300vw;
+                left: 3vw;
+                color: white;
+                text-shadow: -1px -1px 0 black,
+                     1px -1px 0 black,
+                     -1px 1px 0 black,
+                     1px 1px 0 black;
+            }
+            #car_film h1{
+                position: absolute;
+                font-size: 5vw;
+                top: 385vw;
+                left: 2vw;
+                color: white;
+                text-shadow: -1px -1px 0 black,
+                     1px -1px 0 black,
+                     -1px 1px 0 black,
+                     1px 1px 0 black;
+            }
+            iframe {
+                top: 30vw;
+            }
+        }
+        @media screen and (max-width: 450px) {
+            #car_film h1{
+                position: absolute;
+                font-size: 5vw;
+                top: 375vw;
+                left: 2vw;
+                color: white;
+                text-shadow: -1px -1px 0 black,
+                     1px -1px 0 black,
+                     -1px 1px 0 black,
+                     1px 1px 0 black;
+            }
+            iframe {
+                top: 25vw;
+            }
+        }
+    </style>
+</head>
+<body class="fade-in">
+    <div class="topnav" id="Topnav">
+        <a href="/" id="logo-lnk">
+            <img src="/assets/logo3.png" alt="LOGO" style="height: 48px; width: auto;">
+        </a>
+        <div id="nav-links">
+            <a class="link" href="/">ホーム</a>
+            <a class="link" href="/profile/Bio">会社案内</a>
+        </div>
+        <div class="underline" id="underline"></div>
+        <a href="javascript:void(0);" class="icon" onclick="menu()">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </a>
+    </div>
+    <div id="mainbody">
+        <div id="shopoutsidephoto">
+            <img src="/assets/realphoto1.jpg" id="shopout">
+            <h1>BIG</h1>
+            <h2>BLOCK</h2>
+            <h3>車の事ならお任せ下さい</h3>
+            <h4>電話: 086-434-3735</h4>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d607.8462497819437!2d133.74965535452216!3d34.590629199873774!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x355157012a699d03%3A0x2c50ab10757a07d9!2z44OT44OD44Kw44OW44Ot44OD44Kv!5e1!3m2!1sja!2sjp!4v1714207003956!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div id="intr-mom">
+                <div id="intr-cont">
+                    <a href="#car-shop"><p>新・中古車販売</p></a>
+                </div>
+                <div id="intr-cont2">
+                    <a href="#insurance"><p>各種保険</p></a>
+                </div>
+                <div id="intr-cont3">
+                    <a href="#painting"><p>板金塗装</p></a>
+                </div>
+                <div id="intr-cont4">
+                    <a href="#inspection"><p>整備・車検・車検代行</p></a>
+                </div>
+                <div id="intr-cont5">
+                    <a href="#car_film"><p>カーフィルム・クリーニング</p></a>
+                </div>
+            </div>
+        </div>
+        <div id="car-shop" name="car-shop">
+            <img src="/assets/realphoto2.jpg" class="car-shop-top">
+            <h1>新・中古車販売</h1>
+            <button class="nav-btn left-btn" onclick="slideCards(-1)"></button>
+            <button class="nav-btn right-btn" onclick="slideCards(1)"></button>
+            <div class="car-card-container car-card-animate">
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car1/"><img src="/car-photo/car-1.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品1の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car2/"><img src="/car-photo/car-2.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品2の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car3/"><img src="/car-photo/car-3.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品3の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car4/"><img src="/car-photo/car-4.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品4の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car5/"><img src="/car-photo/car-5.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品5の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car6/"><img src="/car-photo/car-6.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品6の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car7/"><img src="/car-photo/car-7.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品7の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car8/"><img src="/car-photo/car-8.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品8の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car9/"><img src="/car-photo/car-9.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品9の説明</div></a>
+                </div>
+                <div class="car-card car-card-animate">
+                    <a href="/car-info/car10/"><img src="/car-photo/car-10.jpg" alt="Coming soon">
+                    <div class="price">190万</div>
+                    <div class="description">商品10の説明</div></a>
+                </div>
+            </div>            
+        </div>        
+        <div id="insurance" name="insurance">
+            <img src="/assets/realphoto3.jpg">
+            <h1 class="insurance-animate">各種保険</h1>
+            <h2>事故取扱い等(事故保険対応致します)<br>自賠責保険 (三井住友海上火災保険株式会社代理店) <br>各保険会社取り扱いあります</h2>
+        </div>
+        <div id="painting" name="painting">
+            <img src="/assets/realphoto4.jpg">
+            <h1>板金塗装</h1>
+        </div>
+        <div id="inspection" name="inspection">
+            <img src="/assets/realphoto5.jpg">
+            <h1>整備、車検、車検代行</h1>
+        </div>
+        <div id="car_film" name="car_film">
+            <img src="/assets/raelphoto6.jpg">
+            <h1>カーフィルム<br>その為クリーニング</h1>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <img src="/assets/footer.jpg" alt="Logo" class="footer-logo">
+            <h1>ビッグブロック</h1>
+            <p>岡山県倉敷市四十瀬１０３－２</p>
+            <p>電話: 086-434-3735</p>
+            <p>FAX: 086-434-3725</p>
+            <p><a href="mailto:big-block-company@aria.ocn.ne.jp">big-block-company@aria.ocn.ne.jp</a></p>
+            <p>© 2024 BIG BLOCK</p>
+        </div>
+    </footer>    
+    <div class="scroll-top-btn" onclick="scrollToTop()">
+        <div class="circle"></div>
+        <div class="scroll-container">
+            <span></span>
+        </div>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    //ハンバーガーメニュー
+    function menu() {
+        var underline = document.getElementById('underline');
+        var links = document.querySelectorAll('.topnav a');
+
+        links.forEach(function(link) {
+            link.addEventListener('mouseenter', function(e) {
+                underline.style.width = e.target.offsetWidth + 'px';
+                underline.style.left = e.target.offsetLeft + 'px';
+            });
+
+            link.addEventListener('mouseleave', function(e) {
+                underline.style.width = '0';
+                underline.style.left = e.target.offsetLeft + 'px';
+            });
+        });
+
+        var x = document.getElementById("Topnav");
+        var icon = document.querySelector(".icon");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+            icon.classList.add("change");
+        } else {
+            x.className = "topnav";
+            icon.classList.remove("change");
+        }
+    }
+
+
+    //下の関数と連携してactiveを付与するところ
+    function handleIntersection(entries, observer) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }
+    
+    //指定された要素が画面に表示されたか監視する関数
+    function observeElements(elements, threshold) {
+        var observer = new IntersectionObserver(handleIntersection, {
+            root: null,
+            rootMargin: '0px',
+            threshold: threshold
+        });
+        
+        elements.forEach(function(element) {
+            observer.observe(element);
+        });
+    }
+    
+
+    //これらが監視の関数を呼び出すところ(リスト型)
+    var insuranceHeading = document.querySelector('#insurance h1');
+    observeElements([insuranceHeading], 0.2);
+    
+    var carCards = document.querySelectorAll('.car-card');
+    observeElements(carCards, 0.2);    
+
+    var paint = document.querySelectorAll('#painting h1');
+    observeElements(paint, 0.2);    
+
+    var inspe = document.querySelectorAll('#inspection h1');
+    observeElements(inspe, 0.2); 
+
+    var carfilm = document.querySelectorAll('#car_film h1');
+    observeElements(carfilm, 0.2); 
+
+
+    //jquery
+    function scrollToTop() {
+        $('body,html').animate({
+            scrollTop: 0},300);
+            return false;
+    }
+
+    //アニメーション
+    function fadeIn(element) {
+        element.classList.remove('fade-out');
+        element.classList.add('fade-in');
+        setTimeout(function() {
+            element.classList.add('active');
+        }, 50);
+    }
+
+    function adjustArrowSize() {
+        const leftBtn = document.querySelector('.left-btn');
+        const rightBtn = document.querySelector('.right-btn');
+    
+        const leftBtnWidth = leftBtn.offsetWidth;
+        const leftBtnHeight = leftBtn.offsetHeight;
+        const rightBtnWidth = rightBtn.offsetWidth;
+        const rightBtnHeight = rightBtn.offsetHeight;
+
+        const arrowHeight = leftBtnHeight * 0.2;
+        const arrowWidth = leftBtnWidth * 0.2;
+
+        leftBtn.style.setProperty('--arrow-width', `${arrowWidth}px`);
+        leftBtn.style.setProperty('--arrow-height', `${arrowHeight}px`);
+
+        rightBtn.style.setProperty('--arrow-width', `${arrowWidth}px`);
+        rightBtn.style.setProperty('--arrow-height', `${arrowHeight}px`);
+    }
+
+    //ロードされた際の処理
+    window.onload = function() {
+        adjustArrowSize();
+        fadeIn(document.body);
+    
+        var underline = document.getElementById('underline');
+        var links = document.querySelectorAll('.topnav a');
+        var h1Element = document.querySelector('#shopoutsidephoto h1');
+        var h2Element = document.querySelector('#shopoutsidephoto h2');
+        var h3Element = document.querySelector('#shopoutsidephoto h3');
+        var h4Element = document.querySelector('#shopoutsidephoto h4');
+        var h5Element = document.querySelector('#shopoutsidephoto h5');
+    
+        links.forEach(function(link) {
+            link.addEventListener('mouseenter', function(e) {
+                underline.style.width = e.target.offsetWidth + 'px';
+                underline.style.left = e.target.offsetLeft + 'px';
+            });
+
+            link.addEventListener('mouseleave', function(e) {
+                underline.style.width = '0';
+                underline.style.left = e.target.offsetLeft + 'px';
+            });
+        });
+
+        var worksLink = document.querySelector('.topnav a[href="/"]');
+        underline.style.width = worksLink.offsetWidth + 'px';
+        underline.style.left = worksLink.offsetLeft + 'px';
+
+        fadeIn(document.body);
+
+        setTimeout(function() {
+            h1Element.classList.add('active');
+        }, 800);
+
+        setTimeout(function() {
+            h2Element.classList.add('active');
+        }, 1000);
+    
+        setTimeout(function() {
+            h3Element.classList.add('active');
+        }, 1200);
+
+        setTimeout(function() {
+            h4Element.classList.add('active');
+        }, 1500);
+
+        setTimeout(function() {
+            h5Element.classList.add('active');
+        }, 1700);
+    };
+
+    function saveScrollPosition() {
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        localStorage.setItem('scrollPosition', scrollPosition);
+    }
+
+    function scrollToSavedPosition() {
+        var savedPosition = localStorage.getItem('scrollPosition');
+        if (savedPosition !== null) {
+            var currentPosition = window.pageYOffset || document.documentElement.scrollTop;
+            var distance = Math.abs(savedPosition - currentPosition);
+            var duration = 1000;
+            var startTime;
+    
+            function animation(currentTime) {
+                if (startTime === undefined) startTime = currentTime;
+                var elapsedTime = currentTime - startTime;
+                window.scrollTo(0, easeInOut(elapsedTime, currentPosition, savedPosition - currentPosition, duration));
+    
+                if (elapsedTime < duration) {
+                    requestAnimationFrame(animation);
+                }
+            }
+    
+            //イージング(よくわからん)
+            function easeInOut(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t * t + b;
+                t -= 2;
+                return c / 2 * (t * t * t + 2) + b;
+            }
+    
+            requestAnimationFrame(animation);
+            
+            localStorage.removeItem('scrollPosition');
+        }
+    }
+    
+
+    window.addEventListener('load', scrollToSavedPosition);
+    window.addEventListener('scroll', saveScrollPosition);
+    window.addEventListener('scroll', function() {
+        var scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+    
+        if (scrollX !== 0) {
+            window.scrollTo(0, window.pageYOffset);
+        }
+    });
+
+    //スマホの際にテキストを変更する処理
+    function updateTextBasedOnScreenWidth() {
+        const screenWidth = window.innerWidth;
+        const smartphoneWidth = 650;
+    
+        if (screenWidth <= smartphoneWidth) {
+            document.querySelector('#intr-cont a p').textContent = '販売';
+            document.querySelector('#intr-cont2 a p').textContent = '各種保険';
+            document.querySelector('#intr-cont3 a p').textContent = '板金塗装';
+            document.querySelector('#intr-cont4 a p').textContent = '整備';
+            document.querySelector('#intr-cont5 a p').textContent = 'クリーニング';
+        } else {
+            document.querySelector('#intr-cont a p').textContent = '新・中古車販売';
+            document.querySelector('#intr-cont2 a p').textContent = '各種保険';
+            document.querySelector('#intr-cont3 a p').textContent = '板金塗装';
+            document.querySelector('#intr-cont4 a p').textContent = '整備・車検・車検代行';
+            document.querySelector('#intr-cont5 a p').textContent = 'カーフィルム・クリーニング';
+        }
+    }
+    
+    window.addEventListener('resize', updateTextBasedOnScreenWidth);
+    window.addEventListener('load', updateTextBasedOnScreenWidth);
+
+    //.car-cardのボタンの処理
+    //今いるcardの数を初期化
+    let currentSlide = 0;
+
+    //メインの処理
+    function slideCards(direction) {
+        const container = document.querySelector('.car-card-container');
+        const cardWidth = document.querySelector('.car-card').offsetWidth;
+        const cardMargin = parseFloat(getComputedStyle(document.querySelector('.car-card')).marginLeft);
+        const totalCards = document.querySelectorAll('.car-card').length;
+        const visibleCards = 4;
+    
+        currentSlide += direction;
+    
+        if (currentSlide < 0) {
+            currentSlide = totalCards - visibleCards;
+        } else if (currentSlide > totalCards - visibleCards) {
+            currentSlide = 0;
+        }
+    
+        // ボタンの当たり判定を操作してからfadeアニメーション
+        const leftBtn = document.querySelector('.left-btn');
+        const rightBtn = document.querySelector('.right-btn');
+        
+        if (currentSlide === 0) {
+            leftBtn.style.transition = 'opacity 0.5s';
+            leftBtn.style.opacity = '0';
+            leftBtn.disabled = true;
+            setTimeout(() => {
+                leftBtn.style.display = 'none';
+            }, 500);
+        } else {
+            leftBtn.style.display = 'block';
+            leftBtn.disabled = false;
+            setTimeout(() => {
+                leftBtn.style.transition = 'opacity 0.5s';
+                leftBtn.style.opacity = '1';
+            }, 10);
+        }
+    
+        if (currentSlide === totalCards - visibleCards) {
+            rightBtn.style.transition = 'opacity 0.5s';
+            rightBtn.style.opacity = '0';
+            rightBtn.disabled = true;
+            setTimeout(() => {
+                rightBtn.style.display = 'none';
+            }, 500);
+        } else {
+            rightBtn.style.display = 'block';
+            rightBtn.disabled = false;
+            setTimeout(() => {
+                rightBtn.style.transition = 'opacity 0.5s';
+                rightBtn.style.opacity = '1';
+            }, 10);
+        }
+    
+        const translateValue = -(currentSlide * (cardWidth + cardMargin * 2));
+        container.style.transform = `translateX(${translateValue}px)`;
+    }
+    
+
+</script>
+
+</body>
+</html>
